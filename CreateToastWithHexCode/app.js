@@ -17,6 +17,7 @@ const run = () => {
   btnCopy.addEventListener("click", function () {
     navigator.clipboard.writeText(output.value);
     // alert("Hex code copied to clipboard!");
+    createToast(output.value);
   });
 };
 
@@ -27,4 +28,21 @@ const generateHexRandom = () => {
   const hex = `#${r.toString(16)}${g.toString(16)}${b.toString(16)}`;
 
   return hex;
+};
+
+const createToast = (message) => {
+  // console.log("f called");
+  const div = document.createElement("div");
+  div.innerText = `${message} copied to clipboard`;
+  div.classList = "toast-message toast-message-slide-in";
+
+  document.body.appendChild(div);
+  div.addEventListener("click", function () {
+    div.classList.remove("toast-message-slide-in");
+    div.classList.add("toast-message-slide-out");
+
+    div.addEventListener("animationend", function () {
+      div.remove();
+    });
+  });
 };
